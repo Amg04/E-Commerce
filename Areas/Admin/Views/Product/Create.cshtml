@@ -1,0 +1,63 @@
+﻿@model ProductVM
+@{
+	ViewBag.pageTitle = "Product Management";
+	ViewBag.CardTitle = "Create Product";
+}
+<div class="row">
+	<div class="col-md-4">
+		@* enctype="multipart/form-data"  => to upload image *@
+		<form asp-action="Create" method="post" enctype="multipart/form-data">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Product.Name" class="control-label m-2"></label>
+				<input asp-for="Product.Name" class="form-control" />
+				<span asp-validation-for="Product.Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Product.Description	" class="control-label m-2"></label>
+				<textarea asp-for="Product.Description" class="form-control" ></textarea>
+				<span asp-validation-for="Product.Description" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Product.Price" class="control-label m-2"></label>
+				<input asp-for="Product.Price" class="form-control" />
+				<span asp-validation-for="Product.Price" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Product.Img" class="control-label m-2"></label>
+				<input type="file" name="file" id="imgFile" class="form-control" onchange="fillImg(event);" />
+			</div>
+			<div class="form-group">
+				<label asp-for="Product.CategoryId" class="control-label m-2"></label>
+				<select asp-for="Product.CategoryId" asp-items="Model.CategoryList" class="form-control">
+					<option disabled selected >-- select Category --</option>
+				</select>
+			</div>
+			<br />
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+				<a asp-action="Index" asp-controller="Product" class="btn btn-warning">Back to Index</a>
+			</div>
+		</form>
+	</div>
+	<div class="col-md-4">
+		<div class="container">
+			<img id="ImagePrevew" src="~/@Model.Product.Img" width="300" height="300" style="margin-left:300px;margin-top:70px" />
+		</div>
+	</div>
+</div>
+
+@section scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+	<script>
+		var fillImg = function(event){
+			var imgHolder = document.getElementById("ImagePrevew");
+			imgHolder.src = URL.createObjectURL(event.target.files[0]);
+		}
+	</script>
+
+}
+

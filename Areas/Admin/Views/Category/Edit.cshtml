@@ -1,0 +1,35 @@
+﻿@model Category
+@{
+	ViewBag.pageTitle = "Category Management";
+	ViewBag.CardTitle = "Edit Category";
+}
+<br
+<div class="row">
+	<div class="col-md-4">
+<form href="/Admin/Category/Edit/" method="post">
+	<input hidden asp-for="Id" />
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="mb-3">
+		<label asp-for="Name"></label>
+		<input asp-for="Name" class="form-control" />
+		<span asp-validation-for="Name" class="text-danger"></span>
+	</div>
+	<div class="mb-3">
+		<label asp-for="Description	"></label>
+		<textarea  asp-for="Description" class="form-control" ></textarea>
+		<span asp-validation-for="Description" class="text-danger"></span>
+	</div>
+	<div class="mb-3">
+		<input type="submit" value="Edit" class="btn btn-primary" />
+		<a href="/Admin/Category/Index/" class="btn btn-warning">Back to Index</a>
+	</div>
+</form>
+</div>
+</div>
+
+@* Client Side Validation *@
+@* faster than Server side Validation *@
+@* هو مش بيروح السيرفر اصلا هو بيتحقق و هو مكانة عشان كدة مش هيعمل ريفرش للصفحة هيطلع الايرور علي طول *@
+@section scripts {
+	<partial name="_ValidationScriptsPartial"></partial>
+}
